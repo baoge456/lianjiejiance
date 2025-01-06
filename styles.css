@@ -2,8 +2,8 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0; /* 浅灰色背景，突出面板 */
     color: #333;
-    margin: 0; /* 移除默认边距 */
-    padding: 0; /* 移除默认内边距 */
+    margin: 0;
+    padding: 0;
 }
 
 .container {
@@ -11,7 +11,7 @@ body {
     width: 600px; /* 最大宽度为600px */
     margin: 50px auto; /* 上下留出50px的间距，居中 */
     padding: 20px;
-    background: #FFDAB9; /* 面板颜色改为桃泡芙色 */
+    background: #6f4c3e; /* 面板颜色改为咖啡色 */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
@@ -31,6 +31,12 @@ input {
     padding: 10px;
 }
 
+.button-group {
+    display: flex;
+    justify-content: space-between; /* 均匀排列按钮 */
+    margin: 10px 0; /* 按钮组与其他元素的间距 */
+}
+
 button {
     background-color: #4caf50; /* 按钮颜色为绿色 */
     color: white; /* 按钮字体颜色为白色，确保明显 */
@@ -42,12 +48,6 @@ button {
     text-align: center; /* 文本居中 */
 }
 
-.button-group {
-    display: flex;
-    justify-content: space-between; /* 均匀排列按钮 */
-    margin: 10px 0; /* 按钮组与其他元素的间距 */
-}
-
 #results {
     margin-top: 20px;
 }
@@ -57,7 +57,10 @@ button {
 }
 
 .status-error {
-    color: red; /* 错误状态显示为红色 */
+    color: black; /* 错误状态字体颜色改为黑色 */
+    background-color: red; /* 错误状态背景颜色为红色 */
+    padding: 5px; /* 增加内边距 */
+    border-radius: 5px; /* 圆角 */
 }
 
 #websiteList {
@@ -74,15 +77,6 @@ button {
 
 #websiteList button {
    margin-left: 10px; /* 按钮之间的间距 */
-}
-
-button.delete {
-   background-color: red; /* 删除按钮为红色 */
-   color: white;
-}
-
-button.modify {
-   background-color: blue; /* 修改按钮为蓝色 */
 }
 
 /* 进度条样式 */
