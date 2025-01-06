@@ -9,7 +9,6 @@ body {
 .container {
     max-width: 90%; /* 容器最大宽度为90% */
     width: 600px; /* 最大宽度为600px */
-    margin-top:100px;
     margin: 100px auto; /* 上下留出100px的间距，居中 */
     padding: 20px;
     background: #FFDAB9; /* 面板颜色改为桃泡芙色 */
