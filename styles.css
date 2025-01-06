@@ -68,6 +68,7 @@ button {
     justify-content: space-between; /* 确保文本和按钮对齐 */
     align-items: center; /* 垂直居中对齐 */
     margin-bottom: 10px; /* 每个条目之间的间距 */
+    position: relative; /* 为悬浮结果设置相对定位 */
 }
 
 #websiteList button {
@@ -83,13 +84,27 @@ button.modify {
    background-color: yellow; /* 修改按钮为黄色 */
 }
 
-/* 汇总结果样式 */
 #summaryResults {
    margin-top: 20px;
    padding: 10px;
    border-radius: 5px;
    background-color: #e7f3fe; /* 浅蓝色背景 */
    border-left: 6px solid #2196F3; /* 蓝色左边框 */
+   position: sticky; /* 汇总结果粘性定位 */
+   top: 0; /* 粘性定位顶部 */
+   z-index: 10; /* 确保汇总结果在顶部显示 */
+}
+
+/* 悬浮结果样式 */
+.result-popup {
+    position: absolute; /* 绝对定位 */
+    top: 100%; /* 位于列表项下方 */
+    left: 0; /* 与列表项左对齐 */
+    background-color: rgba(255, 255, 255, 0.9); /* 背景颜色 */
+    border: 1px solid #ccc; /* 边框 */
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 100; /* 确保悬浮结果在顶部显示 */
 }
 
 /* 媒体查询：针对小屏幕（如手机）进行样式调整 */
