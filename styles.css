@@ -91,27 +91,44 @@ button.modify {
    border-left: 6px solid #2196F3; /* 蓝色左边框 */
 }
 
+/* 进度条样式 */
+#progressContainer {
+    margin-top: 20px;
+}
+
+#progressBar {
+    width: 0;
+    height: 20px;
+    background-color: #4caf50; /* 进度条颜色 */
+    border-radius: 5px;
+}
+
+#progressText {
+    text-align: center;
+    margin-top: 5px;
+}
+
 /* 媒体查询：针对小屏幕（如手机）进行样式调整 */
 @media (max-width: 600px) {
-   .container {
-       width: 95%; /* 在小屏幕上容器宽度为95% */
-       padding: 10px; /* 减少内边距 */
-   }
+    .container {
+        width: 95%; /* 在小屏幕上容器宽度为95% */
+        padding: 10px; /* 减少内边距 */
+    }
 
-   form {
-       flex-direction: column; /* 垂直排列输入框和按钮 */
-       align-items: stretch; /* 按钮和输入框占满整个宽度 */
-   }
+    form {
+        flex-direction: column; /* 垂直排列输入框和按钮 */
+        align-items: stretch; /* 按钮和输入框占满整个宽度 */
+    }
 
-   input {
-       margin-right: 0; /* 移除右边距以适应垂直排列 */
-       margin-bottom: 10px; /* 添加底部间距以分隔输入框和按钮 */
-       width: auto; /* 自适应宽度 */
-   }
+    input {
+        margin-right: 0; /* 移除右边距以适应垂直排列 */
+        margin-bottom: 10px; /* 添加底部间距以分隔输入框和按钮 */
+        width: auto; /* 自适应宽度 */
+    }
 
-   button {
-       width: 100%; /* 按钮占满整个宽度 */
-       margin-left: 0; /* 移除左边距以适应全宽 */
-       margin-bottom: 10px; /* 添加底部间距以分隔按钮 */
-   }
+    button {
+        width: 100%; /* 按钮占满整个宽度 */
+        margin-left: 0; /* 移除左边距以适应全宽 */
+        margin-bottom: 10px; /* 添加底部间距以分隔按钮 */
+    }
 }
