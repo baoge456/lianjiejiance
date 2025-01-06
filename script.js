@@ -92,11 +92,13 @@ async function checkWebsite(website, listItem) {
 // 显示检测结果的函数
 function displayResult(element, name, resultText) {
     element.innerText = `${name}: ${resultText}`; // 显示结果文本
-    
+    // 修改为简明扼要的格式
     if (resultText.includes("正常运行")) {
-        element.className = 'status-normal';
+        element.innerText = `${name}: 正常`; // 显示正常状态
     } else {
-        element.className = 'status-error';
+        const errorCodeMatch = resultText.match(/状态码: (\d+)/); // 匹配状态码
+        const errorCode = errorCodeMatch ? errorCodeMatch[1] : '未知错误';
+        element.innerText = `${name}: 返回错误状态码: ${errorCode}`; // 显示错误状态
     }
 }
 
