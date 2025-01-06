@@ -163,33 +163,93 @@ document.getElementById('startMonitoring').addEventListener('click', async funct
     }
 });
 
-// 展开/收起按钮逻辑 
-document.getElementById('toggleWebsiteList').addEventListener('click', function() { 
-     const websiteList = document.getElementById('websiteList'); 
-     if (websiteList.style.display === 'none' || websiteList.style.display === '') { 
-         websiteList.style.display = 'block'; // 展开列表 
-         this.textContent = '收起列表'; // 改变按钮文本 
-     } else { 
-         websiteList.style.display = 'none'; // 收起列表 
-         this.textContent = '展开列表'; // 改变按钮文本 
-     } 
+// 下载网站列表为文本文件
+function downloadWebsiteList() {
+    const websites = JSON.parse(localStorage.getItem('websites')) || [];
+    if (websites.length === 0) {
+        alert("没有可下载的网址。");
+        return;
+    }
+
+    // 创建文本内容
+    const content = websites.map(website => `${website.url},${website.name}`).join('\n');
+    const blob = new Blob([content], { type: 'text/plain' }); // 创建Blob对象
+    const url = URL.createObjectURL(blob); // 创建文件的URL
+
+    // 创建下载链接
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'websites.txt'; // 设置下载文件名
+    document.body.appendChild(a); // 将链接添加到文档
+    a.click(); // 模拟点击下载
+    document.body.removeChild(a); // 下载后移除链接
+    URL.revokeObjectURL(url); // 释放URL对象
+}
+
+// 监听下载按钮的点击事件
+document.getElementById('downloadButton').addEventListener('click', downloadWebsiteList);
+
+// 导入网址列表
+document.getElementById('uploadButton').addEventListener('click', function() {
+    document.getElementById('fileInput').click(); // 模拟点击文件输入
 });
 
-// 监听表单提交事件 
-document.getElementById('monitorForm').addEventListener('submit', function(event) { 
-     event.preventDefault(); // 阻止默认提交行为 
-     const url = document.getElementById('url').value; // 获取输入的网址 
-     const name = document.getElementById('name').value; // 获取输入的网站名称 
+// 监听文件选择事件
+document.getElementById('fileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0]; // 获取选择的文件
+    if (!file) {
+        return;
+    }
 
-     // 检查是否为重复网址 
-     const websites = JSON.parse(localStorage.getItem('websites')) || []; 
-     const isDuplicate = websites.some(website => website.url === url); 
+    const reader = new FileReader(); // 创建文件读取器
+    reader.onload = function(e) {
+        const content = e.target.result; // 获取文件内容
+        const lines = content.split('\n'); // 按行分割内容
+
+        const websites = lines.map(line => {
+            const [url, name] = line.split(','); // 分割URL和名称
+            return { url, name }; // 返回对象
+        });
+
+        // 将导入的网址添加到本地存储
+        const existingWebsites = JSON.parse(localStorage.getItem('websites')) || [];
+        const updatedWebsites = [...existingWebsites, ...websites];
+        localStorage.setItem('websites', JSON.stringify(updatedWebsites)); // 更新本地存储
+
+        alert("网址列表导入成功！");
+        displayWebsiteList(); // 更新显示列表
+    };
+
+    reader.readAsText(file); // 读取文件内容
+});
+
+// 展开/收起按钮逻辑
+document.getElementById('toggleWebsiteList').addEventListener('click', function() {
+     const websiteList = document.getElementById('websiteList');
+     if (websiteList.style.display === 'none' || websiteList.style.display === '') {
+         websiteList.style.display = 'block'; // 展开列表
+         this.textContent = '收起列表'; // 改变按钮文本
+     } else {
+         websiteList.style.display = 'none'; // 收起列表
+         this.textContent = '展开列表'; // 改变按钮文本
+     }
+});
+
+// 监听表单提交事件
+document.getElementById('monitorForm').addEventListener('submit', function(event) {
+     event.preventDefault(); // 阻止默认提交行为
+     const url = document.getElementById('url').value; // 获取输入的网址
+     const name = document.getElementById('name').value; // 获取输入的网站名称
+
+     // 检查是否为重复网址
+     const websites = JSON.parse(localStorage.getItem('websites')) || [];
+     const isDuplicate = websites.some(website => website.url === url);
      
-     if (isDuplicate) { 
-         alert("该网址已存在，请输入不同的网址。"); 
-         return; 
-     } 
+     if (isDuplicate) {
+         alert("该网址已存在，请输入不同的网址。");
+         return;
+     }
 
-     addWebsiteToList(url, name); // 将新网站添加到本地存储 
-     displayWebsiteList(); // 显示当前监测的网站列表 
+     addWebsiteToList(url, name); // 将新网站添加到本地存储
+     displayWebsiteList(); // 显示当前监测的网站列表
 });
