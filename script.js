@@ -172,18 +172,6 @@ document.getElementById('toggleWebsiteList').addEventListener('click', function(
      } 
 });
 
-// 显示/隐藏检测记录的逻辑 
-document.getElementById('toggleResults').addEventListener('click', function() { 
-     const resultsDiv = document.getElementById('results'); 
-     if (resultsDiv.style.display === 'none' || resultsDiv.style.display === '') { 
-         resultsDiv.style.display = 'block'; // 展示记录 
-         this.textContent = '隐藏检测记录'; // 改变按钮文本 
-     } else { 
-         resultsDiv.style.display = 'none'; // 隐藏记录 
-         this.textContent = '显示检测记录'; // 改变按钮文本 
-     } 
-});
-
 // 监听表单提交事件 
 document.getElementById('monitorForm').addEventListener('submit', function(event) { 
      event.preventDefault(); // 阻止默认提交行为 
