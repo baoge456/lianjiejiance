@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>网址即时检测器</title>
     <link rel="stylesheet" href="styles.css">
+    <title>网址即时监测器</title>
 </head>
 <body>
     <div class="container">
-    <h1>网址即时监测器</h1>
-    <form id="monitorForm">
-        <input type="text" id="url" placeholder="输入网址" required>
-        <input type="text" id="name" placeholder="输入网站名称" required>
-        <button type="submit">添加网址</button>
-    </form>
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <button id="startMonitoring">检测全部网址</button> <!-- 固定在同一行 -->
-        <button id="checkLastAdded">检测刚添加的网址</button> <!-- 新增按钮 -->
+        <h1>网址即时监测器</h1>
+        <form id="monitorForm">
+            <input type="text" id="url" placeholder="输入网址" required>
+            <input type="text" id="name" placeholder="输入网站名称" required>
+            <button type="submit">添加网址</button>
+        </form>
+        <div class="button-group">
+            <button id="toggleWebsiteList">展开列表</button>
+            <button id="startMonitoring">检测全部网址</button>
+            <button id="toggleResults">显示/隐藏检测记录</button>
+        </div>
+        <ul id="websiteList"></ul>
+        <div id="results" style="display: none;"></div> <!-- 默认隐藏 -->
+        <div id="summaryResults"></div> <!-- 汇总结果展示区 -->
     </div>
-    <button id="toggleWebsiteList">展开列表</button> <!-- 展开列表按钮 -->
-    <ul id="websiteList" style="display: none;"></ul> <!-- 默认隐藏 -->
-    <div id="results"></div> <!-- 检测结果显示区域 -->
-</div>
     <script src="script.js"></script>
 </body>
 </html>
