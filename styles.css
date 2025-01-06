@@ -105,15 +105,3 @@ button.modify {
     padding: 5px;
     border-radius: 5px;
     z-index: 100; /* 确保悬浮结果在顶部显示 */
-    display: none; /* 默认隐藏悬浮结果 */
-}
-
-/* 媒体查询：针对小屏幕（如手机）进行样式调整 */
-@media (max-width: 600px) {
-   .container {
-       width: 95%; /* 在小屏幕上容器宽度为95% */
-       padding: 10px; /* 减除内边距 */
-   }
-
-   form {
-       flex-direction: column; /* 垂直排列输入框和按钮 */
