@@ -24,7 +24,7 @@ function displayWebsiteList() {
         const checkButton = document.createElement('button');
         checkButton.textContent = '检测';
         checkButton.className = 'check';
-        checkButton.onclick = () => { checkWebsite(website); }; // 添加检测功能
+        checkButton.onclick = () => { checkWebsite(website, listItem); }; // 添加检测功能
 
         const link = document.createElement('span');
         link.textContent = website.name; // 显示网站名称
@@ -73,65 +73,34 @@ function modifyWebsite(index) {
 }
 
 // 检测单个网站的逻辑
-async function checkWebsite(website) {
-    const resultsDiv = document.getElementById('results');
-    
+async function checkWebsite(website, listItem) {
+    const resultElement = document.createElement('div');
+    listItem.appendChild(resultElement); // 将结果显示在网址下方
+
     try {
         const response = await fetch(`https://jiance.baoge.us.kg/?target=${encodeURIComponent(website.url)},${encodeURIComponent(website.name)}`);
         const resultText = await response.text();
         
-        displayResult(website.name, resultText); // 显示结果时使用网站名称
+        displayResult(resultElement, website.name, resultText); // 显示结果时使用网站名称
 
-        // 保存最近一次检测记录到 localStorage
-        localStorage.setItem("lastChecked", JSON.stringify({ name: website.name, resultText }));
-        
     } catch (error) {
         console.error(`检测 ${website.name} 时出错`, error);
-        displayResult(website.name, "检测失败");
+        displayResult(resultElement, website.name, "检测失败");
     }
 }
 
 // 显示检测结果的函数
-function displayResult(name, resultText) {
-    const resultsDiv = document.getElementById('results');
-    
-    resultsDiv.style.display = 'block'; // 显示结果区域
-
-    const resultElement = document.createElement('div');
-    resultElement.innerText = `${name}: ${resultText}`; // 显示结果文本
+function displayResult(element, name, resultText) {
+    element.innerText = `${name}: ${resultText}`; // 显示结果文本
     
     if (resultText.includes("正常运行")) {
-        resultElement.className = 'status-normal';
+        element.className = 'status-normal';
     } else {
-        resultElement.className = 'status-error';
+        element.className = 'status-error';
     }
-    
-    resultsDiv.appendChild(resultElement);
 }
 
-// 显示总结结果的函数
-function displaySummaryResults(total, success, failure, failedUrls) {
-    const summaryDiv = document.createElement('div');
-    
-    summaryDiv.innerHTML = `
-       总网址个数：${total}<br/>
-       成功连通：${success}<br/>
-       检测失败：${failure}<br/>
-       失败的网址名称：${failedUrls.join(', ') || '无'}`;
-    
-    // 清除之前的总结结果（如果存在）
-    const existingSummaryDiv = document.querySelector('#summaryResults');
-    
-    if (existingSummaryDiv) existingSummaryDiv.remove();
-    
-    summaryDiv.id = 'summaryResults'; // 设置ID以便后续清除或更新
-
-    // 将总结插入到主面板的前端
-    const container = document.querySelector('.container');
-    container.insertBefore(summaryDiv, container.firstChild);
-}
-
-// 检测全部网址的逻辑，使用Promise.all并行处理请求
+// 检测全部网址的逻辑
 document.getElementById('startMonitoring').addEventListener('click', async function() {
     const websites = JSON.parse(localStorage.getItem('websites')) || [];
     
@@ -140,19 +109,25 @@ document.getElementById('startMonitoring').addEventListener('click', async funct
         return;
     }
 
-    // 隐藏结果区域
+    // 隐藏结果区域和进度条
     document.getElementById('results').style.display = 'none';
+    document.getElementById('progressContainer').style.display = 'block';
+    document.getElementById('progressBar').style.width = '0%';
+    document.getElementById('progressText').innerText = '检测进度: 0%';
 
     let totalCount = websites.length;
     let successCount = 0;
     let failureCount = 0;
     let failedUrls = [];
 
-    for (const website of websites) {
+    for (let i = 0; i < totalCount; i++) {
+        const website = websites[i];
+
         try {
             const response = await fetch(`https://jiance.baoge.us.kg/?target=${encodeURIComponent(website.url)},${encodeURIComponent(website.name)}`);
             const resultText = await response.text();
-            displayResult(website.name, resultText); // 显示结果时使用网站名称
+            const listItem = document.getElementById('websiteList').children[i];
+            displayResult(listItem.lastChild, website.name, resultText); // 显示结果时使用网站名称
 
             if (resultText.includes("正常运行")) {
                 successCount++;
@@ -160,19 +135,24 @@ document.getElementById('startMonitoring').addEventListener('click', async funct
                 failureCount++;
                 failedUrls.push(website.name); // 添加到失败网址列表
             }
-            
-            localStorage.setItem("lastChecked", JSON.stringify({ name: website.name, resultText })); // 保存最近一次检测记录
 
         } catch (error) {
             console.error(`检测 ${website.name} 时出错`, error);
             failureCount++;
             failedUrls.push(website.name); // 将出错的网址也视为失败
-            displayResult(website.name, "检测失败");
+            const listItem = document.getElementById('websiteList').children[i];
+            displayResult(listItem.lastChild, website.name, "检测失败");
         }
+
+        // 更新进度条
+        const progressPercentage = ((i + 1) / totalCount) * 100;
+        document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+        document.getElementById('progressText').innerText = `检测进度: ${Math.round(progressPercentage)}%`;
     }
 
-    // 显示总结结果
-    displaySummaryResults(totalCount, successCount, failureCount, failedUrls);
+    // 检测完成
+    alert("检测已完成");
+    document.getElementById('progressContainer').style.display = 'none'; // 隐藏进度条
 });
 
 // 展开/收起按钮逻辑 
