@@ -82,7 +82,7 @@ button.delete {
 }
 
 button.modify {
-   background-color: yellow; /* 修改按钮为黄色 */
+   background-color: blue; /* 修改按钮为蓝色 */
 }
 
 /* 进度条样式 */
