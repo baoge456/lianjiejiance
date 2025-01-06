@@ -85,20 +85,21 @@ async function checkWebsite(website, listItem) {
 
     } catch (error) {
         console.error(`检测 ${website.name} 时出错`, error);
-        displayResult(resultElement, website.name, "检测失败");
+        displayResult(resultElement, website.name, "返回错误状态码: 500"); // 显示错误状态
     }
 }
 
 // 显示检测结果的函数
 function displayResult(element, name, resultText) {
-    element.innerText = `${name}: ${resultText}`; // 显示结果文本
-    // 修改为简明扼要的格式
+    const errorCodeMatch = resultText.match(/状态码: (\d+)/); // 匹配状态码
+    const errorCode = errorCodeMatch ? errorCodeMatch[1] : '未知错误';
+
     if (resultText.includes("正常运行")) {
         element.innerText = `${name}: 正常`; // 显示正常状态
+        element.className = 'status-normal'; // 设置类名为正常状态
     } else {
-        const errorCodeMatch = resultText.match(/状态码: (\d+)/); // 匹配状态码
-        const errorCode = errorCodeMatch ? errorCodeMatch[1] : '未知错误';
         element.innerText = `${name}: 返回错误状态码: ${errorCode}`; // 显示错误状态
+        element.className = 'status-error'; // 设置类名为错误状态
     }
 }
 
@@ -144,7 +145,7 @@ document.getElementById('startMonitoring').addEventListener('click', async funct
             failureCount++;
             failedUrls.push(website.name); // 将出错的网址也视为失败
             const listItem = document.getElementById('websiteList').children[i];
-            displayResult(listItem.lastChild, website.name, "检测失败");
+            displayResult(listItem.lastChild, website.name, "返回错误状态码: 500"); // 显示错误状态
         }
 
         // 更新进度条和统计信息
