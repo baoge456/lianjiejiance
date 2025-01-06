@@ -31,20 +31,21 @@ input {
     padding: 10px;
 }
 
-.button-group {
-    display: flex;
-    justify-content: space-between; /* 均匀排列按钮 */
-    margin: 10px 0; /* 按钮组与其他元素的间距 */
-}
-
 button {
     background-color: #4caf50; /* 按钮颜色为绿色 */
-    color: white;
+    color: white; /* 按钮字体颜色为白色，确保明显 */
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     flex: 1; /* 按钮自适应宽度 */
     margin: 0 5px; /* 按钮之间的间距 */
+    text-align: center; /* 文本居中 */
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between; /* 均匀排列按钮 */
+    margin: 10px 0; /* 按钮组与其他元素的间距 */
 }
 
 #results {
