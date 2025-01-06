@@ -10,6 +10,7 @@ function addWebsiteToList(url, name) {
     let websites = JSON.parse(localStorage.getItem('websites')) || [];
     websites.push({ url, name });
     localStorage.setItem('websites', JSON.stringify(websites));
+    displayWebsiteList(); // 更新显示列表
 }
 
 // 显示当前监测的网站列表
@@ -38,41 +39,4 @@ function displayWebsiteList() {
         editButton.className = 'modify';
         editButton.onclick = () => { modifyWebsite(index); };
         
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = '删除';
-        deleteButton.className = 'delete';
-        deleteButton.onclick = () => { deleteWebsite(index); };
-
-        // 将其他按钮添加到列表项中
-        listItem.appendChild(editButton);
-        listItem.appendChild(deleteButton);
-        
-        websiteList.appendChild(listItem);
-    });
-}
-
-// 删除网站
-function deleteWebsite(index) {
-    let websites = JSON.parse(localStorage.getItem('websites')) || [];
-    websites.splice(index, 1); // 删除指定索引的网站
-    localStorage.setItem('websites', JSON.stringify(websites)); // 更新本地存储
-    displayWebsiteList(); // 更新显示列表
-}
-
-// 修改网站
-function modifyWebsite(index) {
-    let websites = JSON.parse(localStorage.getItem('websites')) || [];
-    const newUrl = prompt("请输入新的网址", websites[index].url);
-    const newName = prompt("请输入新的网站名称", websites[index].name);
-    
-    if (newUrl && newName) {
-        websites[index] = { url: newUrl, name: newName }; // 更新指定索引的网站信息
-        localStorage.setItem('websites', JSON.stringify(websites)); // 更新本地存储
-        displayWebsiteList(); // 更新显示列表
-    }
-}
-
-// 检测单个网站的逻辑
-async function checkWebsite(website, listItem) {
-    try {
-        const response =
+        const dele
