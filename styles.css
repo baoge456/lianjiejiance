@@ -38,7 +38,7 @@ input {
 }
 
 button {
-    background-color: #FFF8DC; /* 按钮颜色为玉米丝色 */
+    background-color: #000080; /* 按钮颜色为海军蓝色 */
     color: white; /* 按钮字体颜色为白色，确保明显 */
     padding: 10px 15px;
     border: none;
