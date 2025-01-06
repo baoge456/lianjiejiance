@@ -9,9 +9,9 @@ body {
 .container {
     max-width: 90%; /* 容器最大宽度为90% */
     width: 600px; /* 最大宽度为600px */
-    margin: auto;
+    margin: 50px auto; /* 上下留出50px的间距，居中 */
     padding: 20px;
-    background: #ffcccb; /* 面板颜色改为淡红色 */
+    background: #6f4c3e; /* 面板颜色改为咖啡色 */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
