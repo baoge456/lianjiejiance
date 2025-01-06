@@ -11,7 +11,7 @@ body {
     width: 600px; /* 最大宽度为600px */
     margin: auto;
     padding: 20px;
-    background: #FFDAB9; /* 设置主面板颜色为 桃泡芙1 颜色 */
+    background: #FFDAB9c; /* 设置主面板颜色为桃泡芙色 */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
@@ -31,16 +31,21 @@ input {
     padding: 10px;
 }
 
+.button-group {
+    display: flex;
+    justify-content: space-between; /* 均匀排列按钮 */
+    margin-bottom: 10px; /* 按钮组与其他元素的间距 */
+}
 
 button {
-   background-color: lightgreen; /* 所有按钮为淡绿色 */
-   color: black;
-   padding: 10px 15px;
-   margin-bottom: 10px; /* 增加按钮之间的行距 */
-   border: none;
-   border-radius: 5px;
-   cursor: pointer;
+    background-color: lightgreen; /* 所有按钮为淡绿色 */
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
+
 #results {
     margin-top: 20px;
 }
@@ -56,7 +61,6 @@ button {
 #websiteList {
     list-style-type: none; /* 移除列表样式 */
     padding: 0; /* 移除内边距 */
-    display: none; /* 默认隐藏 */
 }
 
 #websiteList li {
@@ -67,43 +71,48 @@ button {
 }
 
 #websiteList button {
-    margin-left: 10px; /* 按钮之间的间距 */
+   margin-left: 10px; /* 按钮之间的间距 */
 }
 
 button.delete {
-    background-color: red; /* 删除按钮为红色 */
-    color: white;
+   background-color: red; /* 删除按钮为红色 */
+   color: white;
 }
 
 button.modify {
-    background-color: yellow; /* 修改按钮为黄色 */
+   background-color: yellow; /* 修改按钮为黄色 */
 }
 
-button.default {
-    background-color: LawnGreen; /* 默认按钮为绿色 */
+/* 汇总结果样式 */
+#summaryResults {
+   margin-top: 20px;
+   padding: 10px;
+   border-radius: 5px;
+   background-color: #e7f3fe; /* 浅蓝色背景 */
+   border-left: 6px solid #2196F3; /* 蓝色左边框 */
 }
 
 /* 媒体查询：针对小屏幕（如手机）进行样式调整 */
 @media (max-width: 600px) {
-    .container {
-        width: 95%; /* 在小屏幕上容器宽度为95% */
-        padding: 10px; /* 减少内边距 */
-    }
+   .container {
+       width: 95%; /* 在小屏幕上容器宽度为95% */
+       padding: 10px; /* 减少内边距 */
+   }
 
-    form {
-        flex-direction: column; /* 垂直排列输入框和按钮 */
-        align-items: stretch; /* 按钮和输入框占满整个宽度 */
-    }
+   form {
+       flex-direction: column; /* 垂直排列输入框和按钮 */
+       align-items: stretch; /* 按钮和输入框占满整个宽度 */
+   }
 
-    input {
-        margin-right: 0; /* 移除右边距以适应垂直排列 */
-        margin-bottom: 10px; /* 添加底部间距以分隔输入框和按钮 */
-        width: auto; /* 自适应宽度 */
-    }
+   input {
+       margin-right: 0; /* 移除右边距以适应垂直排列 */
+       margin-bottom: 10px; /* 添加底部间距以分隔输入框和按钮 */
+       width: auto; /* 自适应宽度 */
+   }
 
-    button {
-        width: 100%; /* 按钮占满整个宽度 */
-        margin-left: 0; /* 移除左边距以适应全宽 */
-        margin-bottom: 10px; /* 添加底部间距以分隔按钮 */
-    }
+   button {
+       width: 100%; /* 按钮占满整个宽度 */
+       margin-left: 0; /* 移除左边距以适应全宽 */
+       margin-bottom: 10px; /* 添加底部间距以分隔按钮 */
+   }
 }
