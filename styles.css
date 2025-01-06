@@ -105,29 +105,15 @@ button.modify {
     padding: 5px;
     border-radius: 5px;
     z-index: 100; /* 确保悬浮结果在顶部显示 */
+    display: none; /* 默认隐藏悬浮结果 */
 }
 
 /* 媒体查询：针对小屏幕（如手机）进行样式调整 */
 @media (max-width: 600px) {
    .container {
        width: 95%; /* 在小屏幕上容器宽度为95% */
-       padding: 10px; /* 减少内边距 */
+       padding: 10px; /* 减除内边距 */
    }
 
    form {
        flex-direction: column; /* 垂直排列输入框和按钮 */
-       align-items: stretch; /* 按钮和输入框占满整个宽度 */
-   }
-
-   input {
-       margin-right: 0; /* 移除右边距以适应垂直排列 */
-       margin-bottom: 10px; /* 添加底部间距以分隔输入框和按钮 */
-       width: auto; /* 自适应宽度 */
-   }
-
-   button {
-       width: 100%; /* 按钮占满整个宽度 */
-       margin-left: 0; /* 移除左边距以适应全宽 */
-       margin-bottom: 10px; /* 添加底部间距以分隔按钮 */
-   }
-}
