@@ -114,6 +114,7 @@ document.getElementById('startMonitoring').addEventListener('click', async funct
     document.getElementById('progressContainer').style.display = 'block';
     document.getElementById('progressBar').style.width = '0%';
     document.getElementById('progressText').innerText = '检测进度: 0%';
+    document.getElementById('progressStats').innerText = `总数量: ${websites.length}, 成功: 0, 失败: 0`;
 
     let totalCount = websites.length;
     let successCount = 0;
@@ -144,15 +145,19 @@ document.getElementById('startMonitoring').addEventListener('click', async funct
             displayResult(listItem.lastChild, website.name, "检测失败");
         }
 
-        // 更新进度条
+        // 更新进度条和统计信息
         const progressPercentage = ((i + 1) / totalCount) * 100;
         document.getElementById('progressBar').style.width = `${progressPercentage}%`;
         document.getElementById('progressText').innerText = `检测进度: ${Math.round(progressPercentage)}%`;
+        document.getElementById('progressStats').innerText = `总数量: ${totalCount}, 成功: ${successCount}, 失败: ${failureCount}`;
     }
 
     // 检测完成
     alert("检测已完成");
     document.getElementById('progressContainer').style.display = 'none'; // 隐藏进度条
+    if (failureCount > 0) {
+        alert(`失败的网址名称: ${failedUrls.join(', ')}`); // 显示失败网址
+    }
 });
 
 // 展开/收起按钮逻辑 
