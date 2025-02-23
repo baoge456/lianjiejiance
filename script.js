@@ -78,7 +78,7 @@ async function checkWebsite(website, listItem) {
     listItem.appendChild(resultElement); // 将结果显示在网址下方
 
     try {
-        const response = await fetch(`https://jiance.baoge.us.kg/?target=${encodeURIComponent(website.url)},${encodeURIComponent(website.name)}`);
+        const response = await fetch(`https://jiance.baoge.wang?target=${encodeURIComponent(website.url)},${encodeURIComponent(website.name)}`);
         const resultText = await response.text();
         
         displayResult(resultElement, website.name, resultText); // 显示结果时使用网站名称
@@ -128,7 +128,7 @@ document.getElementById('startMonitoring').addEventListener('click', async funct
         const website = websites[i];
 
         try {
-            const response = await fetch(`https://jiance.baoge.us.kg/?target=${encodeURIComponent(website.url)},${encodeURIComponent(website.name)}`);
+            const response = await fetch(`https://jiance.baoge.wang?target=${encodeURIComponent(website.url)},${encodeURIComponent(website.name)}`);
             const resultText = await response.text();
             const listItem = document.getElementById('websiteList').children[i];
             displayResult(listItem.lastChild, website.name, resultText); // 显示结果时使用网站名称
